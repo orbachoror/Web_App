@@ -11,7 +11,13 @@ const createPost = async(req,res) => {
 };
 
 const getAllPosts = async(req,res) => {
+    const ownerFilter = req.query.owner;
     try{
+        if(ownerFilter){
+            const posts=await PostModel.find({owner:ownerFilter});
+            res.status(200).send(posts);
+            return;
+        }
         const posts=await PostModel.find({});
         res.status(200).send(posts);
     }catch(err){

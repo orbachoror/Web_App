@@ -8,4 +8,5 @@ router.get("/", postsController.getAllPosts);
 
 router.get("/:id",postsController.getById);
 
+router.get("/",postsController.getAllPosts);
 module.exports=router;

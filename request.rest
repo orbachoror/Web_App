@@ -1,4 +1,4 @@
-###
+### Create a new post
 POST http://localhost:3000/posts
 Content-Type: application/json
 
@@ -8,8 +8,11 @@ Content-Type: application/json
   "owner":"yoni isakov"
 }
 
-###
+### Get all posts
 GET http://localhost:3000/posts
 
-###
+### Get a specific post by ID
 GET http://localhost:3000/posts/673cd423c9ea72dc2808df5e
+
+### Get post by owner
+GET http://localhost:3000/posts?owner=yoni
