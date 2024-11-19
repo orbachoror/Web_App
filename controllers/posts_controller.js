@@ -19,4 +19,16 @@ const getAllPosts = async(req,res) => {
     }
 };
 
-module.exports={createPost,getAllPosts};
+
+const getById = async(req,res) => {
+    const id =req.params.id;
+    try{
+        const post=await PostModel.findById(id);
+        res.status(200).send(post);
+    }catch(err){
+        res.status(400).send(err);
+    }
+};
+
+
+module.exports={createPost,getAllPosts,getById};
