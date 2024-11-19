@@ -14,6 +14,9 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const postRoutes =require("./routes/posts_routes");
+app.use("/posts",postRoutes);
+
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
