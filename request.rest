@@ -1,0 +1,9 @@
+###
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+  "title":"Our first post",
+  "content":"The first post",
+  "owner":"Or Orbach"
+}
