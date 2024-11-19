@@ -5,5 +5,8 @@ Content-Type: application/json
 {
   "title":"Our first post",
   "content":"The first post",
-  "owner":"Or Orbach"
+  "owner":"yoni"
 }
+
+###
+GET http://localhost:3000/posts

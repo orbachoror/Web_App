@@ -10,4 +10,13 @@ const createPost = async(req,res) => {
     }
 };
 
-module.exports={createPost};
+const getAllPosts = async(req,res) => {
+    try{
+        const posts=await PostModel.find({});
+        res.status(200).send(posts);
+    }catch(err){
+        res.status(400).send(err);
+    }
+};
+
+module.exports={createPost,getAllPosts};
