@@ -1,0 +1,31 @@
+{
+  "name": "matala_1_webapp",
+  "version": "1.0.0",
+  "description": "\"matala_1\"",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orbachoror/Matala_1_24.git"
+  },
+  "author": "\"or orbach & yonatan isakov\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orbachoror/Matala_1_24/issues"
+  },
+  "homepage": "https://github.com/orbachoror/Matala_1_24#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoos": "^0.0.1-security",
+    "mongoose": "^8.8.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
