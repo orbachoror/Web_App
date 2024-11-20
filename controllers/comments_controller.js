@@ -27,6 +27,33 @@ const getComments = async(req,res) => {
     }
 };
 
+const getCommentsById = async(req,res) => {
+    const IdFilter = req.params.id;
+    try{
+        if(IdFilter){
+            const comments=await Comment.findById(IdFilter);
+            res.status(200).send(comments);
+            return;
+        }
+    }catch(err){
+        res.status(400).send(err);
+    }
+};
+
+
+const getCommentsByPostId = async(req,res) => {
+    const PostIdFilter = req.query.postId;
+    try{
+        if(PostIdFilter){
+            const comments=await Comment.find({postId:PostIdFilter});
+            res.status(200).send(comments);
+            return;
+        }
+    }catch(err){
+        res.status(400).send(err);
+    }
+};
+
 /*
 const deleteComments = async(req,res) => {
     const id =req.params.id;
@@ -59,6 +86,8 @@ const updateComments = async(req,res) => {
 module.exports={
     createComments,
     getComments,
+    getCommentsById,
+    getCommentsByPostId,
     //deleteComments,
     //updateComments
     };
