@@ -54,26 +54,25 @@ const getCommentsByPostId = async(req,res) => {
     }
 };
 
-/*
-const deleteComments = async(req,res) => {
-    const id =req.params.id;
+
+const deleteCommentsById = async(req,res) => {
+    const ID =req.params.id;
     try{
-        const post=await PostModel.findById(id);
-        res.status(200).send(post);
+        const delteComment=await Comment.findByIdAndDelete(ID);
+        res.status(200).send(delteComment);
     }catch(err){
         res.status(400).send(err);
     }
 };
 
 
-const updateComments = async(req,res) => {
-    const id=req.params.id;
-    const postBody=req.body;
+const updateCommentsById = async(req,res) => {
+    const ID=req.params.id;
+    const comment=req.body;
     try{
-        const post=await PostModel.findByIdAndUpdate(id,postBody,{new:true,runValidators: true});
-        res.status(200).send(post);
-            // Check if the post was found and updated
-    if (!post) {
+        const update=await Comment.findByIdAndUpdate(ID,comment,{new:true,runValidators: true});
+        res.status(200).send(update);
+    if (!update) {
         return res.status(404).send({ message: "Post not found" });
       }
     }
@@ -82,12 +81,12 @@ const updateComments = async(req,res) => {
     }
 };
 
-*/
+
 module.exports={
     createComments,
     getComments,
     getCommentsById,
     getCommentsByPostId,
-    //deleteComments,
-    //updateComments
+    deleteCommentsById,
+    updateCommentsById
     };
