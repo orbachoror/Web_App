@@ -18,7 +18,7 @@ GET http://localhost:3000/posts/673cdbf4c0bc0c39cdc7d479
 GET http://localhost:3000/posts?owner=yoni
 
 ### Update a post
-PUT http://localhost:3000/posts/673cdbf4c0bc0c39cdc7d479
+PUT http://localhost:3000/posts/673cd3d3c9ea72dc2808df5c
 Content-Type: application/json
 
 {
@@ -26,3 +26,18 @@ Content-Type: application/json
   "content":"Update",
   "owner":"yoni isakov"
 }
+
+
+### Create a Comment
+POST http://localhost:3000/comments
+Content-Type: application/json
+
+{
+  "postId": "673cd3d3c9ea72dc2808df5c", 
+  "content": "This is a test comment.",
+  "author": "Test"
+}
+
+
+### Get Comments
+GET  http://localhost:3000/comments
