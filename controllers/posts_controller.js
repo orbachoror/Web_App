@@ -41,11 +41,11 @@ const updatePostById = async(req,res) => {
     const postBody=req.body;
     try{
         const post=await PostModel.findByIdAndUpdate(id,postBody,{new:true,runValidators: true});
-        res.status(200).send(post);
             // Check if the post was found and updated
     if (!post) {
         return res.status(404).send({ message: "Post not found" });
       }
+      res.status(200).send(post);
     }
     catch(err){
         res.status(400).send(err);
