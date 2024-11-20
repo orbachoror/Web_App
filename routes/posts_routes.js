@@ -8,7 +8,6 @@ router.get("/", postsController.getAllPosts);
 
 router.get("/:id",postsController.getById);
 
-router.get("/",postsController.getAllPosts);
 router.put("/:id",postsController.updatePostById);
 
 module.exports=router;
