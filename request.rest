@@ -52,7 +52,7 @@ GET  http://localhost:3000/comments/673dcec87ecb88c75a5183b0
 GET  http://localhost:3000/comments/by-post/673cd3d3c9ea72dc2808df5c
 
 ### delete Comments ById
-DELETE   http://localhost:3000/comments/673dcec87ecb88c75a5183b0
+DELETE   http://localhost:3000/comments/6748b743e4aa09486e927dc8
 
 ### update Comments ById
 PUT   http://localhost:3000/comments/673dcec87ecb88c75a5183b0

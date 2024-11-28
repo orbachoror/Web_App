@@ -1,8 +1,13 @@
 const Comment= require("../models/comments_models");
+const Post = require("../models/posts_models");
 
 const createComments = async(req,res) => {
     try{
         const format =req.body;
+        const postExists = await Post.findById(format.postId);
+    if(!postExists){
+        return res.status(404).send({message: "Post not found"});
+    }
         const comment= await Comment.create(format);
         res.status(201).send(comment);
     }catch (err){
