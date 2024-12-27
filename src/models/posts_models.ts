@@ -1,16 +1,17 @@
-const mongoose=require("mongoose");
+import exp from "constants";
+import mongoose from "mongoose";
 
-const postSchema =new mongoose.Schema({
+const postSchema = new mongoose.Schema({
     title: {
-        type:String,
+        type: String,
         require: true,
     },
-    content:String,
-    owner:{
+    content: String,
+    owner: {
         type: String,
-        require:true,
+        require: true,
     },
 });
 
-const postModel =mongoose.model("posts",postSchema);
-module.exports=postModel;
+const postModel = mongoose.model("posts", postSchema);
+export default postModel;
