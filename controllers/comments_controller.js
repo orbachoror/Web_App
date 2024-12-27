@@ -83,9 +83,9 @@ const updateCommentsById = async(req,res) => {
     try{
         const update=await Comment.findByIdAndUpdate(ID,comment,{new:true,runValidators: true});
     if (!update) {
-        return res.status(404).send({ message: "Post not found" });
+        return res.status(404).send({ message: "Comment not found" });
       }
-      res.status(200).send(post);
+      res.status(200).send(update);
     }
     catch(err){
         res.status(400).send(err);

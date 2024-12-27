@@ -10,4 +10,8 @@ router.get("/:id",postsController.getById);
 
 router.put("/:id",postsController.updatePostById);
 
+router.delete("/:id",postsController.deletePostById);
+
+router.delete("/",postsController.deleteAllPosts);
+
 module.exports=router;
