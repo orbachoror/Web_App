@@ -3,22 +3,22 @@ POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-  "title":"Our second post",
-  "content":"The second post",
-  "owner":"yoni isakov"
+  "title":"Our test post",
+  "content":"The test post",
+  "owner":"test2"
 }
 
 ### Get all posts
 GET http://localhost:3000/posts
 
 ### Get a specific post by ID
-GET http://localhost:3000/posts/673cdbf4c0bc0c39cdc7d479
+GET http://localhost:3000/posts/6748bc45ae462904a9a87866
 
 ### Get post by owner
-GET http://localhost:3000/posts?owner=yoni
+GET http://localhost:3000/posts?owner=test2
 
 ### Update a post
-PUT http://localhost:3000/posts/673cd3d3c9ea72dc2808df5b
+PUT http://localhost:3000/posts/6748bc45ae462904a9a87866
 Content-Type: application/json
 
 {
@@ -27,15 +27,20 @@ Content-Type: application/json
   "owner":"yoni isakov"
 }
 
+### Delete a post by ID
+DELETE http://localhost:3000/posts/6748bc51ae462904a9a87869
+
+### Delete all posts
+DELETE http://localhost:3000/posts
 
 ### Create a Comment
 POST http://localhost:3000/comments
 Content-Type: application/json
 
 {
-  "postId": "673cd3d3c9ea72dc2808df59", 
+  "postId": "6748bc90ae462904a9a87875", 
   "content": "This is a test comment.",
-  "author": "Test1"
+  "author": "Test2"
 }
 
 
@@ -46,20 +51,20 @@ GET  http://localhost:3000/comments
 GET  http://localhost:3000/comments/by-author?author=Test1
 
 ### Get Comments ById
-GET  http://localhost:3000/comments/673dcec87ecb88c75a5183b0
+GET  http://localhost:3000/comments/6748bc9fae462904a9a87878
 
 ### Get Comments ByPostId
-GET  http://localhost:3000/comments/by-post/673cd3d3c9ea72dc2808df5c
+GET  http://localhost:3000/comments/by-post/6748bc90ae462904a9a87875
 
 ### delete Comments ById
-DELETE   http://localhost:3000/comments/6748b743e4aa09486e927dc8
+DELETE   http://localhost:3000/comments/6748bc9fae462904a9a87878
 
 ### update Comments ById
-PUT   http://localhost:3000/comments/673dcec87ecb88c75a5183b0
+PUT   http://localhost:3000/comments/6748bafd027aa7d8d7496eb2
 Content-Type: application/json
 
 {            
-  "postId": "673cd3d3c9ea72dc2808df5c", 
-  "content": "This is a test comment.",
-  "author": "Test"
+  "postId": "6748bc90ae462904a9a87875", 
+  "content": "This is a test comment update",
+  "author": "Test update"
 }
