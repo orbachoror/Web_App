@@ -20,19 +20,27 @@
   },
   "homepage": "https://github.com/orbachoror/Matala_1_24#readme",
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/supertest": "^6.0.2",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoos": "^0.0.1-security",
     "mongoose": "^8.8.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@types/express": "^4.17.1",
+    "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.10.2",
     "eslint": "^9.17.0",
     "globals": "^15.14.0",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.7",
+    "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.2"

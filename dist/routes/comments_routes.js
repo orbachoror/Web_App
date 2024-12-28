@@ -1,12 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const commentsController = require("../controllers/comments_controller");
-router.post("/", commentsController.createComments); //create
-router.get("/", commentsController.getAllComments); //read
-router.get("/by-author", commentsController.getCommentsByAuthor); //read
-router.get("/:id", commentsController.getCommentsById); //read
-router.get("/by-post/:postId", commentsController.getCommentsByPostId); //read
-router.delete("/:id", commentsController.deleteCommentsById); //delete
-router.put("/:id", commentsController.updateCommentsById); // update
-module.exports = router;
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const router = express_1.default.Router();
+const comments_controller_1 = __importDefault(require("../controllers/comments_controller"));
+router.post("/", comments_controller_1.default.createComments); //create
+router.get("/", comments_controller_1.default.getAllComments); //read
+router.get("/:id", comments_controller_1.default.getCommentsById); //read
+router.delete("/:id", comments_controller_1.default.deleteCommentsById); //delete
+router.put("/:id", comments_controller_1.default.updateCommentsById); // update
+exports.default = router;
 //# sourceMappingURL=comments_routes.js.map

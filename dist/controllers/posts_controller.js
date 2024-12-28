@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,50 +8,50 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const PostModel = require("../models/posts_models");
-const createPost = (req, res) => __awaiter(this, void 0, void 0, function* () {
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const posts_models_1 = __importDefault(require("../models/posts_models"));
+const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const postBody = req.body;
     try {
-        const post = yield PostModel.create(postBody);
+        const post = yield posts_models_1.default.create(postBody);
         res.status(201).send(post);
     }
     catch (err) {
         res.status(400).send(err);
     }
 });
-const getAllPosts = (req, res) => __awaiter(this, void 0, void 0, function* () {
-    const ownerFilter = req.query.owner;
+const getAllPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const filter = req.query;
     try {
-        if (ownerFilter) {
-            const posts = yield PostModel.find({ owner: ownerFilter });
-            res.status(200).send(posts);
-            return;
-        }
-        const posts = yield PostModel.find({});
+        const posts = yield posts_models_1.default.find(filter);
         res.status(200).send(posts);
     }
     catch (err) {
         res.status(400).send(err);
     }
 });
-const getById = (req, res) => __awaiter(this, void 0, void 0, function* () {
+const getById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     try {
-        const post = yield PostModel.findById(id);
+        const post = yield posts_models_1.default.findById(id);
         res.status(200).send(post);
     }
     catch (err) {
         res.status(400).send(err);
     }
 });
-const updatePostById = (req, res) => __awaiter(this, void 0, void 0, function* () {
+const updatePostById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const postBody = req.body;
     try {
-        const post = yield PostModel.findByIdAndUpdate(id, postBody, { new: true, runValidators: true });
+        const post = yield posts_models_1.default.findByIdAndUpdate(id, postBody, { new: true, runValidators: true });
         // Check if the post was found and updated
         if (!post) {
-            return res.status(404).send({ message: "Post not found" });
+            res.status(404).send({ message: "Post not found" });
+            return;
         }
         res.status(200).send(post);
     }
@@ -58,12 +59,13 @@ const updatePostById = (req, res) => __awaiter(this, void 0, void 0, function* (
         res.status(400).send(err);
     }
 });
-const deletePostById = (req, res) => __awaiter(this, void 0, void 0, function* () {
+const deletePostById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     try {
-        const post = yield PostModel.findByIdAndDelete(id);
+        const post = yield posts_models_1.default.findByIdAndDelete(id);
         if (!post) {
-            return res.status(404).send({ message: "Post not found" });
+            res.status(404).send({ message: "Post not found" });
+            return;
         }
         res.status(200).send(post);
     }
@@ -71,14 +73,14 @@ const deletePostById = (req, res) => __awaiter(this, void 0, void 0, function* (
         res.status(400).send(err);
     }
 });
-const deleteAllPosts = (req, res) => __awaiter(this, void 0, void 0, function* () {
+const deleteAllPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const posts = yield PostModel.deleteMany({});
+        const posts = yield posts_models_1.default.deleteMany({});
         res.status(200).send(posts);
     }
     catch (err) {
         res.status(400).send(err);
     }
 });
-module.exports = { createPost, getAllPosts, getById, updatePostById, deletePostById, deleteAllPosts };
+exports.default = { createPost, getAllPosts, getById, updatePostById, deletePostById, deleteAllPosts };
 //# sourceMappingURL=posts_controller.js.map

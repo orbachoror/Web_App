@@ -7,9 +7,7 @@ router.post("/", commentsController.createComments); //create
 
 router.get("/", commentsController.getAllComments); //read
 
-
 router.get("/:id", commentsController.getCommentsById); //read
-
 
 router.delete("/:id", commentsController.deleteCommentsById); //delete
 
