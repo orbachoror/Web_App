@@ -78,7 +78,7 @@ async updateItemById(req: Request, res: Response) {
       });
 
       if (!updatedItem) {
-        return res.status(404).json({ message: "Item not found" });
+        return res.status(401).json({ message: "Item not found" });
       }
 
       res.status(200).json(updatedItem);  

@@ -117,6 +117,23 @@ describe("Posts test suite", ()=>{
         console.log(post);
         expect(respponse3.statusCode).toBe(404);
       });
+
+      test("Update post test by id", async () => {
+        const updatePst = {
+            title: "Updated title",
+            content: "Updated content",
+        };
+
+        const response= await request(app)
+        .put("/posts/"+ postId)
+        .set({
+            authorization: "JWT " + testUser.token})
+        .send(updatePst);
+        
+        expect(response.statusCode).toBe(200);
+        expect(response.body.content).toBe(updatePst.content);
+        expect(response.body.title).toBe(updatePst.title);
+      });
   
 });
 

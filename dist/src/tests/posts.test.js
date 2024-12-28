@@ -108,5 +108,20 @@ describe("Posts test suite", () => {
         console.log(post);
         expect(respponse3.statusCode).toBe(404);
     }));
+    test("Update post test by id", () => __awaiter(void 0, void 0, void 0, function* () {
+        const updatePst = {
+            title: "Updated title",
+            content: "Updated content",
+        };
+        const response = yield (0, supertest_1.default)(app)
+            .put("/posts/" + postId)
+            .set({
+            authorization: "JWT " + testUser.token
+        })
+            .send(updatePst);
+        expect(response.statusCode).toBe(200);
+        expect(response.body.content).toBe(updatePst.content);
+        expect(response.body.title).toBe(updatePst.title);
+    }));
 });
 //# sourceMappingURL=posts.test.js.map
