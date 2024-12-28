@@ -57,16 +57,7 @@ export class BaseController<T>{
   }
 
 
-  async updateById (req:Request , res:Response)  {
-    try {
-      const data = await this.model.create(req.body);
-      res.status(201).send(data);
-    } catch (error) {
-      res.status(400).send(error);
-    }
-  };
-
-
+  
 async updateItemById(req: Request, res: Response) {
     const id  = req.params.id; 
     const updateData = req.body; 

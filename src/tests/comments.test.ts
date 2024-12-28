@@ -101,6 +101,21 @@ describe("Comments test suite", ()=>{
         expect(response.statusCode).toBe(404);
     });
 
+    test("Update comments test by id", async () => {
+        const updateComments = {
+            comment: "Updated comment",
+        };
+
+        const response= await request(app)
+        .put("/comments/"+ postId)
+        .set({
+            authorization: "JWT " + testUser.token})
+        .send(updateComments);
+        
+        expect(response.statusCode).toBe(200);
+        expect(response.body.comment).toBe(updateComments.comment);
+      });
+      
     test("Comments Delete test", async () => {
         const response = await request(app)
         .delete("/comments/"+ postId)
@@ -117,20 +132,7 @@ describe("Comments test suite", ()=>{
         expect(respponse3.statusCode).toBe(404);
       });
 
-      test("Update comments test by id", async () => {
-        const updateComments = {
-            comment: "Updated comment",
-        };
-
-        const response= await request(app)
-        .put("/comments/"+ postId)
-        .set({
-            authorization: "JWT " + testUser.token})
-        .send(updateComments);
-        
-        expect(response.statusCode).toBe(200);
-        expect(response.body.comment).toBe(updateComments.comment);
-      });
+      
   
 });
 

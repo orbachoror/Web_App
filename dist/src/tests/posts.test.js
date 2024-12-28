@@ -94,20 +94,6 @@ describe("Posts test suite", () => {
         const response = yield (0, supertest_1.default)(app).get("/posts/6745df242f1b06026b3201f8");
         expect(response.statusCode).toBe(404);
     }));
-    test("Posts Delete test", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app)
-            .delete("/posts/" + postId)
-            .set({
-            authorization: "JWT " + testUser.token
-        });
-        expect(response.statusCode).toBe(200);
-        const respponse2 = yield (0, supertest_1.default)(app).get("/posts/" + postId);
-        expect(respponse2.statusCode).toBe(404);
-        const respponse3 = yield (0, supertest_1.default)(app).get("/posts/" + postId);
-        const post = respponse3.body;
-        console.log(post);
-        expect(respponse3.statusCode).toBe(404);
-    }));
     test("Update post test by id", () => __awaiter(void 0, void 0, void 0, function* () {
         const updatePst = {
             title: "Updated title",
@@ -122,6 +108,20 @@ describe("Posts test suite", () => {
         expect(response.statusCode).toBe(200);
         expect(response.body.content).toBe(updatePst.content);
         expect(response.body.title).toBe(updatePst.title);
+    }));
+    test("Posts Delete test", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .delete("/posts/" + postId)
+            .set({
+            authorization: "JWT " + testUser.token
+        });
+        expect(response.statusCode).toBe(200);
+        const respponse2 = yield (0, supertest_1.default)(app).get("/posts/" + postId);
+        expect(respponse2.statusCode).toBe(404);
+        const respponse3 = yield (0, supertest_1.default)(app).get("/posts/" + postId);
+        const post = respponse3.body;
+        console.log(post);
+        expect(respponse3.statusCode).toBe(404);
     }));
 });
 //# sourceMappingURL=posts.test.js.map

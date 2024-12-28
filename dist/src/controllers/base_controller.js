@@ -74,18 +74,6 @@ class BaseController {
             }
         });
     }
-    updateById(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const data = yield this.model.create(req.body);
-                res.status(201).send(data);
-            }
-            catch (error) {
-                res.status(400).send(error);
-            }
-        });
-    }
-    ;
     updateItemById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;

@@ -93,6 +93,19 @@ describe("Comments test suite", () => {
         const response = yield (0, supertest_1.default)(app).get("/comments/6745df242f1b06026b3201f8");
         expect(response.statusCode).toBe(404);
     }));
+    test("Update comments test by id", () => __awaiter(void 0, void 0, void 0, function* () {
+        const updateComments = {
+            comment: "Updated comment",
+        };
+        const response = yield (0, supertest_1.default)(app)
+            .put("/comments/" + postId)
+            .set({
+            authorization: "JWT " + testUser.token
+        })
+            .send(updateComments);
+        expect(response.statusCode).toBe(200);
+        expect(response.body.comment).toBe(updateComments.comment);
+    }));
     test("Comments Delete test", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .delete("/comments/" + postId)
@@ -106,19 +119,6 @@ describe("Comments test suite", () => {
         const post = respponse3.body;
         console.log(post);
         expect(respponse3.statusCode).toBe(404);
-    }));
-    test("Update comments test by id", () => __awaiter(void 0, void 0, void 0, function* () {
-        const updateComments = {
-            comment: "Updated comment",
-        };
-        const response = yield (0, supertest_1.default)(app)
-            .put("/comments/" + postId)
-            .set({
-            authorization: "JWT " + testUser.token
-        })
-            .send(updateComments);
-        expect(response.statusCode).toBe(200);
-        expect(response.body.comment).toBe(updateComments.comment);
     }));
 });
 //# sourceMappingURL=comments.test.js.map

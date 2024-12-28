@@ -102,6 +102,23 @@ describe("Posts test suite", ()=>{
         expect(response.statusCode).toBe(404);
     });
 
+    test("Update post test by id", async () => {
+        const updatePst = {
+            title: "Updated title",
+            content: "Updated content",
+        };
+
+        const response= await request(app)
+        .put("/posts/"+ postId)
+        .set({
+            authorization: "JWT " + testUser.token})
+        .send(updatePst);
+        
+        expect(response.statusCode).toBe(200);
+        expect(response.body.content).toBe(updatePst.content);
+        expect(response.body.title).toBe(updatePst.title);
+      });
+      
     test("Posts Delete test", async () => {
         const response = await request(app)
         .delete("/posts/"+ postId)
@@ -118,22 +135,7 @@ describe("Posts test suite", ()=>{
         expect(respponse3.statusCode).toBe(404);
       });
 
-      test("Update post test by id", async () => {
-        const updatePst = {
-            title: "Updated title",
-            content: "Updated content",
-        };
-
-        const response= await request(app)
-        .put("/posts/"+ postId)
-        .set({
-            authorization: "JWT " + testUser.token})
-        .send(updatePst);
-        
-        expect(response.statusCode).toBe(200);
-        expect(response.body.content).toBe(updatePst.content);
-        expect(response.body.title).toBe(updatePst.title);
-      });
+      
   
 });
 
