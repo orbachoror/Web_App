@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "dist",
-    "rootDir": "src"
+      "module": "commonjs",
+      "target": "ES6",
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "outDir": "./dist", // Output directory
   },
-  "lib": ["es2015"]
+  "lib":["es2015"]
 }
