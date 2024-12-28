@@ -77,14 +77,8 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.status(400).send("missing auth configuration");
             return;
         }
-        if (user.refreshToken == null) {
-            user.refreshToken = [];
-            yield user.save();
-        }
-        else {
-            user.refreshToken.push(tokens.refreshToken);
-            yield user.save();
-        }
+        user.refreshToken.push(tokens.refreshToken);
+        yield user.save();
         res.status(200).send({
             token: tokens.token,
             email: user.email,

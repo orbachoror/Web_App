@@ -109,6 +109,19 @@ describe("Posts test suite", () => {
         expect(response.body.content).toBe(updatePst.content);
         expect(response.body.title).toBe(updatePst.title);
     }));
+    test("Update post with wrong ID format", () => __awaiter(void 0, void 0, void 0, function* () {
+        const updatePst = {
+            title: "Updated title",
+            content: "Updated content",
+        };
+        const response = yield (0, supertest_1.default)(app)
+            .put("/posts/" + postId + 5)
+            .set({
+            authorization: "JWT " + testUser.token
+        })
+            .send(updatePst);
+        expect(response.statusCode).not.toBe(200);
+    }));
     test("Posts Delete test", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .delete("/posts/" + postId)
@@ -122,6 +135,35 @@ describe("Posts test suite", () => {
         const post = respponse3.body;
         console.log(post);
         expect(respponse3.statusCode).toBe(404);
+    }));
+    test("Posts delete not existent post", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .delete("/posts/" + postId)
+            .set({
+            authorization: "JWT " + testUser.token
+        });
+        expect(response.statusCode).not.toBe(200);
+    }));
+    test("Posts delete with wrong ID format", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .delete("/posts/" + postId + 5)
+            .set({
+            authorization: "JWT " + testUser.token
+        });
+        expect(response.statusCode).not.toBe(200);
+    }));
+    test("Update not existent post test", () => __awaiter(void 0, void 0, void 0, function* () {
+        const updatePst = {
+            title: "Updated title",
+            content: "Updated content",
+        };
+        const response = yield (0, supertest_1.default)(app)
+            .put("/posts/" + postId)
+            .set({
+            authorization: "JWT " + testUser.token
+        })
+            .send(updatePst);
+        expect(response.statusCode).not.toBe(200);
     }));
 });
 //# sourceMappingURL=posts.test.js.map
