@@ -125,6 +125,64 @@ router.get("/:id", postsController.getById.bind(postsController));
 */
 router.post("/", authTestMiddleware, postsController.createItem.bind(postsController));
 
+/**
+* @swagger
+* /posts/{id}:
+*   put:
+*     summary: Update a post
+*     description: Update a post by its ID
+*     security:
+*       - bearerAuth: []
+*     tags: [Posts]
+*     parameters:
+*       - in: path
+*         name: id
+*         schema:
+*           type: string
+*         required: true
+*         description: The ID of the post to update
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             type: object
+*             properties:
+*               title:
+*                 type: string
+*                 description: The title of the post
+*               content:
+*                 type: string
+*                 description: The content of the post
+*     responses:
+*       200:
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                       title:
+*                           type: string
+*                           description: the post title
+*                           example: "UPDATED post"
+*                       content:
+*                           type: string
+*                           description: the post content
+*                           example: "This is my first UPDATED post ....."
+*                       owner:
+*                           type: string
+*                           description: the post owner
+*                           example: "60f3b4b3b3b3b3b3b3b3b3b3"
+*                       _id:
+*                           type: string
+*                           description: the post id
+*                           example: "60f3b4b3b3b3b3b3b3b3b3"
+*       401:
+*         description: Post not found
+*       500:
+*         description: Internal server error
+*/
+//
 router.put("/:id", authTestMiddleware, postsController.updateItemById.bind(postsController));
 /**
 * @swagger
