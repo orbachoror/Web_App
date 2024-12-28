@@ -1,35 +1,53 @@
-import express, { Express } from 'express';
+import express,{Express} from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import postRoutes from './routes/posts_routes';
-import comments from './routes/comments_routes';
+import commentsRoutes from './routes/comments_routes';
+import authRoutes from './routes/auth_routes';
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUI from 'swagger-ui-express';
 
-const app = express();
+
 dotenv.config();
+const app = express();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/posts", postRoutes);
-app.use("/comments", comments);
+app.use("/posts",postRoutes);  
+app.use("/comments",commentsRoutes);
+app.use("/auth",authRoutes);
 
-const initApp = async (): Promise<Express> => {
-    try {
-        const mongoURL = process.env.MONGO_URL;
-        if (!mongoURL) {
-            throw new Error("Mongo URL is not defined in ENV file");
+const options = {
+        definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Web Dev 2022 REST API",
+            version: "1.0.0",
+            description: "REST server including authentication using JWT",
+            },
+        servers: [{url: "http://localhost:3000",},],
+        },
+    apis: ["./src/routes/*.ts"],
+    };
+    const specs = swaggerJsDoc(options);
+    app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+
+
+const initApp=async()=>{
+        return  new Promise<Express> ((resolve,reject)=>{
+            const db= mongoose.connection;
+            db.on("error",(error)=>{console.error(error)});
+            db.once("open", function (){
+                console.log("Connected to Mongoose")
+            });
+            if (!process.env.DB_CONNECT) {  
+                reject("No DB_CONNECT");
+            }else{
+            mongoose.connect(process.env.DB_CONNECT).then(()=>{
+            resolve(app);
+            });
         }
-
-        const db = mongoose.connection;
-        db.on("error", (error) => { console.error(error) });
-        db.once("open", () => console.log("Connected to Mongoose"));
-
-        await mongoose.connect(mongoURL);
-
-        return app;
-    } catch (err) {
-        console.error("Failed to initialize the app:", err);
-        throw err;
-    }
-}
-
+    });
+};   
 export default initApp;

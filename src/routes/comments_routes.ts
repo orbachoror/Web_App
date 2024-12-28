@@ -1,18 +1,17 @@
 import express from 'express';
-const router = express.Router();
-import commentsController from "../controllers/comments_controller";
+const router=express.Router();
+import commentsController from '../controllers/comments_controller';
+import {authTestMiddleware} from '../controllers/auth_controller';
 
 
-router.post("/", commentsController.createComments); //create
+router.get("/",commentsController.getAll.bind(commentsController));
 
-router.get("/", commentsController.getAllComments); //read
+router.get("/:id",commentsController.getById.bind(commentsController));
 
+router.post("/", authTestMiddleware,commentsController.createItem.bind(commentsController));
 
-router.get("/:id", commentsController.getCommentsById); //read
+router.put("/:id", authTestMiddleware,commentsController.updateItemById.bind(commentsController));
 
-
-router.delete("/:id", commentsController.deleteCommentsById); //delete
-
-router.put("/:id", commentsController.updateCommentsById); // update
+router.delete("/:id", authTestMiddleware,commentsController.deleteItem.bind(commentsController));
 
 export default router;

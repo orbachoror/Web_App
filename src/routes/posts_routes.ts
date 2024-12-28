@@ -1,17 +1,18 @@
 import express from 'express';
-const router = express.Router();
-import postsController from "../controllers/posts_controller";
+import {authTestMiddleware} from '../controllers/auth_controller';
+import postsController from '../controllers/posts_controller';
 
-router.post("/", postsController.createPost);
+const router=express.Router();
 
-router.get("/", postsController.getAllPosts);
+router.post("/",authTestMiddleware,postsController.createItem.bind(postsController));
 
-router.get("/:id", postsController.getById);
+router.get("/",postsController.getAll.bind(postsController));
 
-router.put("/:id", postsController.updatePostById);
+router.get("/:id",postsController.getById.bind(postsController));
 
-router.delete("/:id", postsController.deletePostById);
+router.put("/:id", authTestMiddleware,postsController.updateItemById.bind(postsController));
 
-router.delete("/", postsController.deleteAllPosts);
+router.delete("/:id",authTestMiddleware,postsController.deleteItem.bind(postsController));
+
 
 export default router;
