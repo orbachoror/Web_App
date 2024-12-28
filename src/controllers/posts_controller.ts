@@ -1,22 +1,8 @@
-import PostModel,{iPost} from "../models/posts_models";
-import { BaseController } from "./base_controller";
-import { Request, Response } from "express";
+import PostModel, { iPost } from "../models/posts_models";
+import createController from "./base_controller";
 
- class PostsController extends BaseController<iPost>{
-   constructor() {
-     super(PostModel);
-   }
-     async createItem(req:Request, res:Response){
-         const _id = req.query.userId;
-         const post={
-             ...req.body,
-             owner:_id
-         }
-         req.body = post;
-         super.createItem(req,res);
-     }
+const postsController = createController<iPost>(PostModel);
 
- } 
 
-export default new PostsController();
+export default postsController;
 

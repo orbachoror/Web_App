@@ -47,8 +47,9 @@ class BaseController {
     ;
     createItem(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const _id = req.query.userId;
             try {
-                const data = yield this.model.create(req.body);
+                const data = yield this.model.create(Object.assign(Object.assign({}, req.body), { owner: _id }));
                 res.status(201).send(data);
             }
             catch (error) {
