@@ -33,8 +33,12 @@ export class BaseController<T> {
   };
 
   async createItem(req: Request, res: Response) {
+    const _id = req.query.userId;
     try {
-      const data = await this.model.create(req.body);
+      const data = await this.model.create({
+        ...req.body,
+        owner: _id
+      });
       res.status(201).send(data);
     } catch (error) {
       res.status(400).send(error);
