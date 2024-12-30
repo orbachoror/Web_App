@@ -21,7 +21,14 @@ let app;
 const testUser = {
     email: "test@user.com",
     password: "123456",
-    token: ""
+    token: "",
+    id: ""
+};
+const testUser2 = {
+    email: "test@user777.com",
+    password: "123456",
+    token: "",
+    id: ""
 };
 let postId = "";
 const testPost = {
@@ -39,7 +46,8 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     const response2 = yield (0, supertest_1.default)(app).post("/auth/login").send(testUser);
     expect(response2.statusCode).toBe(200);
     testUser.token = response2.body.token;
-    testPost.owner = response2.body._id;
+    //testPost.owner = response2.body._id;
+    testUser.id = response2.body._id;
 }));
 afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     console.log('afterAll');
@@ -59,10 +67,11 @@ describe("Posts test suite", () => {
             authorization: "JWT " + testUser.token,
         }).send(testPost);
         expect(response.statusCode).toBe(201);
-        expect(response.body.owner).toBe(testPost.owner);
+        expect(response.body.owner).toBe(testUser.id);
         expect(response.body.title).toBe(testPost.title);
         expect(response.body.content).toBe(testPost.content);
         postId = response.body._id;
+        testPost.owner = response.body.owner;
     }));
     test("Test adding invalid post", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).post("/posts").set({
@@ -109,6 +118,25 @@ describe("Posts test suite", () => {
         expect(response.body.content).toBe(updatePst.content);
         expect(response.body.title).toBe(updatePst.title);
     }));
+    test("Update post test by diffrent id ", () => __awaiter(void 0, void 0, void 0, function* () {
+        const updatePost = {
+            title: "Updated title",
+            content: "Updated content",
+        };
+        const response1 = yield (0, supertest_1.default)(app).post("/auth/register").send(testUser2);
+        expect(response1.statusCode).toBe(200);
+        const response2 = yield (0, supertest_1.default)(app).post("/auth/login").send(testUser2);
+        expect(response2.statusCode).toBe(200);
+        testUser2.token = response2.body.token;
+        testUser2.id = response2.body._id;
+        const response = yield (0, supertest_1.default)(app)
+            .put("/posts/" + postId)
+            .set({
+            authorization: "JWT " + testUser2.token
+        })
+            .send(updatePost);
+        expect(response.statusCode).not.toBe(200);
+    }));
     test("Update post with wrong ID format", () => __awaiter(void 0, void 0, void 0, function* () {
         const updatePst = {
             title: "Updated title",
@@ -129,6 +157,20 @@ describe("Posts test suite", () => {
             authorization: "JWT " + testUser.token
         });
         expect(response.statusCode).toBe(200);
+        const respponse2 = yield (0, supertest_1.default)(app).get("/posts/" + postId);
+        expect(respponse2.statusCode).toBe(404);
+        const respponse3 = yield (0, supertest_1.default)(app).get("/posts/" + postId);
+        const post = respponse3.body;
+        console.log(post);
+        expect(respponse3.statusCode).toBe(404);
+    }));
+    test("Posts Delete test with other id", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .delete("/posts/" + postId)
+            .set({
+            authorization: "JWT " + testUser2.token
+        });
+        expect(response.statusCode).not.toBe(200);
         const respponse2 = yield (0, supertest_1.default)(app).get("/posts/" + postId);
         expect(respponse2.statusCode).toBe(404);
         const respponse3 = yield (0, supertest_1.default)(app).get("/posts/" + postId);
