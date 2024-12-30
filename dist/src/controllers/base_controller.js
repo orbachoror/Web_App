@@ -61,8 +61,13 @@ class BaseController {
     deleteItem(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
-            console.log("the id is  " + id);
+            const userId = req.query.userId;
             try {
+                const currentPost = yield this.model.findById(id);
+                const ownerPost = currentPost.owner;
+                if (ownerPost != userId) {
+                    return res.status(401).json({ message: "You are not the owner of this post" });
+                }
                 const deleteedPost = yield this.model.deleteOne({ _id: id });
                 if (deleteedPost.deletedCount === 0) {
                     res.status(400).send({ message: "Post not found" });
@@ -77,9 +82,15 @@ class BaseController {
     }
     updateItemById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const id = req.params.id;
+            const id = req.params.id; //postId
             const updateData = req.body;
+            const userId = req.query.userId;
             try {
+                const currentPost = yield this.model.findById(id);
+                const ownerPost = currentPost.owner;
+                if (ownerPost != userId) {
+                    return res.status(401).json({ message: "You are not the owner of this post" });
+                }
                 const updatedItem = yield this.model.findByIdAndUpdate(id, updateData, {
                     new: true,
                     runValidators: true

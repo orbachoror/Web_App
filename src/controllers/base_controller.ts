@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Model } from "mongoose";
+import { AnyExpression, Model } from "mongoose";
 
 export class BaseController<T> {
   model: Model<T>;
@@ -48,8 +48,14 @@ export class BaseController<T> {
 
   async deleteItem(req: Request, res: Response) {
     const id = req.params.id;
-    console.log("the id is  " + id);
+    const userId = req.query.userId;
+
     try {
+      const currentPost =  await this.model.findById(id);
+      const ownerPost = (currentPost as AnyExpression).owner;
+      if (ownerPost != userId) {
+        return res.status(401).json({ message: "You are not the owner of this post" });
+      }
       const deleteedPost = await this.model.deleteOne({ _id: id });
       if (deleteedPost.deletedCount === 0) {
         res.status(400).send({ message: "Post not found" });
@@ -63,10 +69,16 @@ export class BaseController<T> {
 
 
   async updateItemById(req: Request, res: Response) {
-    const id = req.params.id;
+    const id = req.params.id; //postId
     const updateData = req.body;
+    const userId = req.query.userId;
 
     try {
+      const currentPost =  await this.model.findById(id);
+      const ownerPost = (currentPost as AnyExpression).owner;
+      if (ownerPost != userId) {
+        return res.status(401).json({ message: "You are not the owner of this post" });
+      }
       const updatedItem = await this.model.findByIdAndUpdate(id, updateData, {
         new: true,
         runValidators: true
